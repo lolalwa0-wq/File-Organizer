@@ -1,7 +1,6 @@
 import { useI18n } from "@/lib/i18n";
 import { FadeInWhenVisible } from "@/components/FadeInWhenVisible";
 import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 interface ServiceData {
   id: string;
@@ -78,22 +77,17 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
             {t(service.descKey)}
           </p>
 
-          <div className={`btn-negativity-wrap btn-negativity-${service.id}`}>
-            <Button
-              data-testid={`button-book-${service.id}`}
-              className="w-full border tracking-wider uppercase text-xs relative z-[1]"
-              style={{
-                backgroundColor: "#c9a227",
-                borderColor: "rgba(201, 162, 39, 0.4)",
-                color: "#0c0a06",
-              }}
-              onClick={() => window.open(CONTACT_URL, "_blank")}
-            >
+          <button
+            data-testid={`button-book-${service.id}`}
+            className={`cta-button ${service.id}-cta w-full`}
+            onClick={() => window.open(CONTACT_URL, "_blank")}
+          >
+            <span className="cta-text tracking-wider uppercase text-xs flex items-center justify-center gap-2">
               {t("services.cta")}
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-            <div className="btn-negativity-layer" />
-          </div>
+              <ArrowRight className="w-4 h-4" />
+            </span>
+            <div className={`negativity-overlay ${service.id}-negativity`} />
+          </button>
         </div>
       </div>
     </FadeInWhenVisible>

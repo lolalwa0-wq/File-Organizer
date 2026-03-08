@@ -1,0 +1,247 @@
+The current button effect is wrong. You just made the icon dark and it turns gold on hover — that's not what I need. I need a full animated negativity overlay on the buttons with different cleansing speeds.
+
+Here is the exact code — please implement it precisely:
+
+HTML structure for EACH CTA button:
+HTML
+
+<!-- Wax card button -->
+<button class="cta-button wax-cta">
+  <span class="cta-text">Записаться у ассистента</span>
+  <div class="negativity-overlay wax-negativity"></div>
+</button>
+
+<!-- Lead card button -->
+<button class="cta-button lead-cta">
+  <span class="cta-text">Записаться у ассистента</span>
+  <div class="negativity-overlay lead-negativity"></div>
+</button>
+
+<!-- Ritual card button -->
+<button class="cta-button ritual-cta">
+  <span class="cta-text">Записаться у ассистента</span>
+  <div class="negativity-overlay ritual-negativity"></div>
+</button>
+Base button styles:
+CSS
+
+.cta-button {
+  position: relative;
+  overflow: hidden;
+  padding: 14px 32px;
+  border: 1px solid rgba(201, 162, 39, 0.15);
+  border-radius: 8px;
+  background: #14110a;
+  color: #8a7d6b;
+  font-size: 1rem;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.cta-text {
+  position: relative;
+  z-index: 3;
+}
+Negativity overlay — the dark scary layer:
+CSS
+
+.negativity-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: inherit;
+  background: 
+    radial-gradient(ellipse at 30% 50%, rgba(30, 0, 40, 0.9) 0%, transparent 70%),
+    radial-gradient(ellipse at 70% 30%, rgba(15, 0, 25, 0.8) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 80%, rgba(40, 5, 50, 0.85) 0%, transparent 65%),
+    linear-gradient(180deg, rgba(10, 0, 15, 0.9) 0%, rgba(25, 0, 35, 0.95) 100%);
+  opacity: 1;
+}
+
+/* Dark pulsing animation — negativity is ALIVE, breathing */
+.negativity-overlay {
+  animation: negativityPulse 3s ease-in-out infinite;
+}
+
+@keyframes negativityPulse {
+  0% { 
+    opacity: 0.85;
+    background-position: 0% 0%;
+  }
+  25% {
+    opacity: 0.95;
+  }
+  50% { 
+    opacity: 0.8;
+    background-position: 5% 3%;
+  }
+  75% {
+    opacity: 0.92;
+  }
+  100% { 
+    opacity: 0.85;
+    background-position: 0% 0%;
+  }
+}
+🕯️ WAX button — negativity MELTS away gently:
+CSS
+
+.wax-negativity {
+  /* Slow gentle melting transition */
+  transition: 
+    opacity 2.5s ease-in-out,
+    transform 2.5s ease-in-out,
+    filter 2.5s ease-in-out;
+}
+
+.wax-cta:hover .wax-negativity {
+  opacity: 0;
+  transform: translateY(15px) scaleY(0.3);  /* melts downward like wax */
+  filter: blur(8px);  /* dissolves softly */
+  animation: none;
+}
+
+/* Button slowly becomes bright and clean */
+.wax-cta {
+  transition: 
+    background 2.5s ease-in-out,
+    border-color 2.5s ease-in-out,
+    box-shadow 2.5s ease-in-out,
+    color 2.5s ease-in-out;
+}
+
+.wax-cta:hover {
+  background: rgba(201, 162, 39, 0.1);
+  border-color: rgba(201, 162, 39, 0.5);
+  color: #c9a227;
+  box-shadow: 
+    0 0 20px rgba(201, 162, 39, 0.15),
+    0 0 50px rgba(201, 162, 39, 0.08),
+    inset 0 0 20px rgba(255, 255, 255, 0.03);
+}
+
+/* When mouse LEAVES — negativity creeps back SLOWLY */
+.wax-cta:not(:hover) .wax-negativity {
+  transition: 
+    opacity 4s ease-in,
+    transform 4s ease-in,
+    filter 4s ease-in;
+}
+⚫ LEAD button — negativity RIPPED away INSTANTLY:
+CSS
+
+.lead-negativity {
+  /* Almost instant snap */
+  transition: 
+    opacity 0.08s ease-out,
+    transform 0.08s ease-out;
+}
+
+.lead-cta:hover .lead-negativity {
+  opacity: 0;
+  transform: scale(1.5);  /* explodes outward */
+  animation: none;
+}
+
+/* Button FLASHES bright gold instantly */
+.lead-cta {
+  transition: 
+    background 0.08s ease-out,
+    border-color 0.08s ease-out,
+    box-shadow 0.08s ease-out,
+    color 0.08s ease-out;
+}
+
+.lead-cta:hover {
+  background: rgba(201, 162, 39, 0.2);
+  border-color: rgba(201, 162, 39, 0.7);
+  color: #e8c547;
+  box-shadow: 
+    0 0 30px rgba(201, 162, 39, 0.4),
+    0 0 70px rgba(201, 162, 39, 0.2),
+    0 0 100px rgba(201, 162, 39, 0.1);
+}
+
+/* Bright flash animation on hover */
+.lead-cta:hover::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: inherit;
+  background: rgba(201, 162, 39, 0.3);
+  animation: leadFlash 0.4s ease-out forwards;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes leadFlash {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.3); }
+}
+
+/* When mouse LEAVES — negativity returns but slower */
+.lead-cta:not(:hover) .lead-negativity {
+  transition: 
+    opacity 3s ease-in,
+    transform 3s ease-in;
+}
+🔮 RITUAL button — negativity swirls and dissolves:
+CSS
+
+.ritual-negativity {
+  transition: 
+    opacity 1.5s ease-in-out,
+    transform 1.5s ease-in-out,
+    filter 1.5s ease-in-out;
+}
+
+.ritual-cta:hover .ritual-negativity {
+  opacity: 0;
+  transform: rotate(15deg) scale(1.5);  /* swirls away */
+  filter: blur(5px);
+  animation: none;
+}
+
+.ritual-cta {
+  transition: all 1.5s ease-in-out;
+}
+
+.ritual-cta:hover {
+  background: rgba(201, 162, 39, 0.12);
+  border-color: rgba(201, 162, 39, 0.45);
+  color: #c9a227;
+  box-shadow: 
+    0 0 20px rgba(201, 162, 39, 0.2),
+    0 0 50px rgba(201, 162, 39, 0.1);
+}
+
+.ritual-cta:not(:hover) .ritual-negativity {
+  transition: 
+    opacity 3.5s ease-in,
+    transform 3.5s ease-in,
+    filter 3.5s ease-in;
+}
+💎 Diamond shimmer on ALL clean buttons:
+CSS
+
+.cta-button:hover .cta-text {
+  text-shadow: 0 0 10px rgba(201, 162, 39, 0.3);
+}
+
+@keyframes diamondShimmer {
+  0% { border-color: rgba(201, 162, 39, 0.4); }
+  50% { border-color: rgba(255, 223, 100, 0.7); }
+  100% { border-color: rgba(201, 162, 39, 0.4); }
+}
+
+.cta-button:hover {
+  animation: diamondShimmer 2s ease-in-out infinite;
+}
+Summary — DO NOT simplify this:
+Button	Cleansing speed	Animation
+🕯️ Wax	2.5 seconds — gentle melting downward + blur	Soft, warm, tender
+⚫ Lead	0.08 seconds — instant explosion + flash	Sharp, powerful, blinding
+🔮 Ritual	1.5 seconds — swirl rotation + dissolve	Mysterious, spinning
+All	Mouse leave → negativity creeps back in 3-4s	Slow, eerie return
+Please implement this exact code. Do not simplify to just color change on hover. The full overlay animation is required.
