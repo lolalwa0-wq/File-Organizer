@@ -137,7 +137,7 @@ export function Footer() {
         <div className="border-t pt-8" style={{ borderColor: "rgba(201, 162, 39, 0.1)" }}>
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs" style={{ color: "rgba(138, 125, 107, 0.6)" }}>
             <p data-testid="text-copyright">
-              &copy; {new Date().getFullYear()} LUMINA. {t("footer.rights")}.
+              &copy; {new Date().getFullYear()} {t("brand.name")}. {t("footer.rights")}.
             </p>
             <p data-testid="text-made-with" className="italic">
               {t("footer.made")}

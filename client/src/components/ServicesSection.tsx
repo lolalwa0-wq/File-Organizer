@@ -1,45 +1,36 @@
 import { useI18n } from "@/lib/i18n";
 import { FadeInWhenVisible } from "@/components/FadeInWhenVisible";
-import { ArrowRight, Clock, Monitor } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 
 interface ServiceData {
   id: string;
+  cardClass: string;
   titleKey: string;
   descKey: string;
-  durationKey: string;
-  formatKey: string;
-  priceKey: string;
   image: string;
 }
 
 const services: ServiceData[] = [
   {
-    id: "energy",
-    titleKey: "services.energy.title",
-    descKey: "services.energy.desc",
-    durationKey: "services.energy.duration",
-    formatKey: "services.energy.format",
-    priceKey: "services.energy.price",
+    id: "wax",
+    cardClass: "wax-card",
+    titleKey: "services.wax.title",
+    descKey: "services.wax.desc",
     image: "/images/service-energy.png",
   },
   {
-    id: "therapy",
-    titleKey: "services.therapy.title",
-    descKey: "services.therapy.desc",
-    durationKey: "services.therapy.duration",
-    formatKey: "services.therapy.format",
-    priceKey: "services.therapy.price",
+    id: "lead",
+    cardClass: "lead-card",
+    titleKey: "services.lead.title",
+    descKey: "services.lead.desc",
     image: "/images/service-therapy.png",
   },
   {
-    id: "session",
-    titleKey: "services.session.title",
-    descKey: "services.session.desc",
-    durationKey: "services.session.duration",
-    formatKey: "services.session.format",
-    priceKey: "services.session.price",
+    id: "ritual",
+    cardClass: "ritual-card",
+    titleKey: "services.ritual.title",
+    descKey: "services.ritual.desc",
     image: "/images/service-session.png",
   },
 ];
@@ -51,15 +42,17 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
 
   return (
     <FadeInWhenVisible delay={0.1 + index * 0.15}>
-      <Card
+      <div
         data-testid={`card-service-${service.id}`}
-        className="rounded-md group h-full"
+        className={`service-card ${service.cardClass} relative rounded-md border overflow-hidden h-full flex flex-col`}
         style={{
           backgroundColor: "rgba(201, 162, 39, 0.04)",
           borderColor: "#3d3520",
         }}
       >
-        <div className="relative h-48 md:h-56 overflow-hidden rounded-t-md">
+        <div className="negativity-layer" />
+
+        <div className="relative h-48 md:h-56 overflow-hidden">
           <img
             src={service.image}
             alt={t(service.titleKey)}
@@ -69,18 +62,9 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
             className="absolute inset-0"
             style={{ background: "linear-gradient(to top, rgba(12, 10, 6, 0.9), rgba(12, 10, 6, 0.4), transparent)" }}
           />
-          <div className="absolute bottom-4 left-5">
-            <span
-              data-testid={`text-price-${service.id}`}
-              className="font-serif text-3xl font-bold glow-text-gold"
-              style={{ color: "#c9a227" }}
-            >
-              {t(service.priceKey)}
-            </span>
-          </div>
         </div>
 
-        <CardContent className="p-5 md:p-6">
+        <div className="relative p-5 md:p-6 flex flex-col flex-1">
           <h3
             data-testid={`text-service-title-${service.id}`}
             className="font-serif text-xl md:text-2xl font-semibold mb-3"
@@ -90,30 +74,15 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
           </h3>
           <p
             data-testid={`text-service-desc-${service.id}`}
-            className="leading-relaxed mb-5 text-sm md:text-base break-words"
+            className="leading-relaxed mb-5 text-sm md:text-base break-words flex-1"
             style={{ color: "#8a7d6b", overflowWrap: "break-word", wordWrap: "break-word" }}
           >
             {t(service.descKey)}
           </p>
 
-          <div className="flex flex-col gap-2 mb-5 text-sm" style={{ color: "#8a7d6b" }}>
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 flex-shrink-0" style={{ color: "rgba(201, 162, 39, 0.6)" }} />
-              <span data-testid={`text-duration-${service.id}`} className="break-words" style={{ overflowWrap: "break-word" }}>
-                {t(service.durationKey)}
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Monitor className="w-4 h-4 flex-shrink-0" style={{ color: "rgba(201, 162, 39, 0.6)" }} />
-              <span data-testid={`text-format-${service.id}`} className="break-words" style={{ overflowWrap: "break-word" }}>
-                {t(service.formatKey)}
-              </span>
-            </div>
-          </div>
-
           <Button
             data-testid={`button-book-${service.id}`}
-            className="w-full border tracking-wider uppercase text-xs glow-border"
+            className={`w-full border tracking-wider uppercase text-xs cta-pulse-${service.id}`}
             style={{
               backgroundColor: "#c9a227",
               borderColor: "rgba(201, 162, 39, 0.4)",
@@ -124,8 +93,8 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
             {t("services.cta")}
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </FadeInWhenVisible>
   );
 }

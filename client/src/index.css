@@ -316,6 +316,171 @@
     100% { transform: translate(-25px, 25px) scale(0.95); opacity: 0.25; }
   }
 
+  .golden-shimmer {
+    background: linear-gradient(
+      90deg,
+      #c9a227 0%,
+      #f5e6a3 25%,
+      #c9a227 50%,
+      #f5e6a3 75%,
+      #c9a227 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmerText 4s linear infinite;
+  }
+
+  @keyframes shimmerText {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+  }
+
+  .service-card {
+    position: relative;
+    z-index: 1;
+  }
+
+  .service-card .negativity-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 0;
+  }
+
+  .service-card > *:not(.negativity-layer) {
+    position: relative;
+    z-index: 1;
+  }
+
+  .service-card:hover,
+  .service-card:focus-within {
+    animation: diamondShimmer 2s ease-in-out infinite;
+  }
+
+  @keyframes diamondShimmer {
+    0% { border-color: rgba(201, 162, 39, 0.2); }
+    50% { border-color: rgba(255, 223, 100, 0.5); }
+    100% { border-color: rgba(201, 162, 39, 0.2); }
+  }
+
+  .wax-card .negativity-layer {
+    background: radial-gradient(
+      ellipse at center,
+      rgba(20, 0, 30, 0.6) 0%,
+      rgba(40, 10, 50, 0.4) 40%,
+      rgba(10, 5, 15, 0.3) 100%
+    );
+    transition: opacity 2s ease-in-out;
+  }
+
+  .wax-card {
+    transition: box-shadow 2s ease-in-out, border-color 2s ease-in-out, background-color 2s ease-in-out;
+  }
+
+  .wax-card:hover .negativity-layer,
+  .wax-card:focus-within .negativity-layer {
+    opacity: 0;
+  }
+
+  .wax-card:hover,
+  .wax-card:focus-within {
+    box-shadow:
+      0 0 20px rgba(201, 162, 39, 0.2),
+      0 0 60px rgba(201, 162, 39, 0.1),
+      inset 0 0 30px rgba(255, 255, 255, 0.05);
+    border-color: rgba(201, 162, 39, 0.4);
+    background-color: rgba(201, 162, 39, 0.06);
+  }
+
+  .wax-card:hover .cta-pulse-wax {
+    animation: ctaGentlePulse 2s ease-in-out infinite;
+  }
+
+  @keyframes ctaGentlePulse {
+    0% { box-shadow: 0 0 0px rgba(201, 162, 39, 0); }
+    50% { box-shadow: 0 0 20px rgba(201, 162, 39, 0.3); }
+    100% { box-shadow: 0 0 0px rgba(201, 162, 39, 0); }
+  }
+
+  .lead-card .negativity-layer {
+    background: radial-gradient(
+      ellipse at center,
+      rgba(20, 0, 30, 0.7) 0%,
+      rgba(50, 10, 60, 0.5) 40%,
+      rgba(10, 5, 15, 0.4) 100%
+    );
+    transition: opacity 0.15s ease-out;
+  }
+
+  .lead-card {
+    transition: box-shadow 0.15s ease-out, border-color 0.15s ease-out, background-color 0.15s ease-out;
+  }
+
+  .lead-card:hover .negativity-layer,
+  .lead-card:focus-within .negativity-layer {
+    opacity: 0;
+  }
+
+  .lead-card:hover,
+  .lead-card:focus-within {
+    box-shadow:
+      0 0 30px rgba(201, 162, 39, 0.4),
+      0 0 80px rgba(201, 162, 39, 0.2);
+    border-color: rgba(201, 162, 39, 0.6);
+    background-color: rgba(201, 162, 39, 0.08);
+  }
+
+  .ritual-card .negativity-layer {
+    background: radial-gradient(
+      ellipse at center,
+      rgba(20, 0, 30, 0.55) 0%,
+      rgba(35, 10, 45, 0.4) 40%,
+      rgba(10, 5, 15, 0.35) 100%
+    );
+    transition: opacity 1.2s ease, transform 1.2s ease;
+  }
+
+  .ritual-card {
+    transition: box-shadow 1.2s ease, border-color 1.2s ease, background-color 1.2s ease;
+  }
+
+  .ritual-card:hover .negativity-layer,
+  .ritual-card:focus-within .negativity-layer {
+    opacity: 0;
+    transform: rotate(10deg) scale(1.3);
+  }
+
+  .ritual-card:hover,
+  .ritual-card:focus-within {
+    box-shadow:
+      0 0 25px rgba(201, 162, 39, 0.25),
+      0 0 50px rgba(201, 162, 39, 0.1);
+    border-color: rgba(201, 162, 39, 0.4);
+    background-color: rgba(201, 162, 39, 0.06);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .golden-shimmer {
+      animation: none;
+    }
+    .service-card:hover {
+      animation: none;
+    }
+    .wax-card .negativity-layer,
+    .lead-card .negativity-layer,
+    .ritual-card .negativity-layer {
+      transition: none;
+    }
+    .wax-card,
+    .lead-card,
+    .ritual-card {
+      transition: none;
+    }
+  }
+
   .scroll-mist-flash {
     position: fixed;
     inset: 0;

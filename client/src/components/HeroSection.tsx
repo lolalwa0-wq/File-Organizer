@@ -35,8 +35,8 @@ export function HeroSection() {
             data-testid="text-hero-title"
             className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight"
           >
-            <span className="glow-text" style={{ color: "#c9a227" }}>
-              LUMINA
+            <span className="glow-text golden-shimmer" style={{ color: "#c9a227" }}>
+              {t("brand.name")}
             </span>
           </h1>
         </motion.div>

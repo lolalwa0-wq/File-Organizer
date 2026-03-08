@@ -85,7 +85,7 @@ export function Navbar() {
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="font-serif text-xl tracking-wider"
         >
-          <span className="glow-text" style={{ color: "#c9a227" }}>LUMINA</span>
+          <span className="glow-text golden-shimmer" style={{ color: "#c9a227" }}>{t("brand.name")}</span>
         </button>
 
         <div className="hidden md:flex items-center gap-8">

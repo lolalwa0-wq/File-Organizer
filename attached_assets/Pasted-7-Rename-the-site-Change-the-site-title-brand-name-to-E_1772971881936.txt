@@ -1,0 +1,142 @@
+7. Rename the site
+Change the site title/brand name to "Бриллиант Души" (English version: "Diamond of the Soul").
+Use the serif font (Playfair Display) for the title with a golden shimmer text effect.
+
+8. Add Ritual Magic Services section
+Replace or add to the services section these specific services with interactive negativity-cleansing animations:
+
+Service Cards:
+Card 1 — Чистка воском / Wax Cleansing
+
+Description (RU): "Мягкое и нежное очищение от негативной энергии с помощью воска. Воск бережно впитывает весь негатив, возвращая вашу душу к первозданной чистоте."
+Description (EN): "Gentle cleansing of negative energy through wax. The wax softly absorbs all negativity, returning your soul to its pristine purity."
+Image: placeholder image of melting wax / candle
+CTA button: "Записаться у ассистента" / "Book via Assistant"
+Card 2 — Чистка свинцом / Lead Cleansing
+
+Description (RU): "Мощное и решительное снятие негатива с помощью свинца. Свинец мгновенно забирает на себя всю тёмную энергию, освобождая вас раз и навсегда."
+Description (EN): "Powerful and decisive removal of negativity through lead. Lead instantly absorbs all dark energy, freeing you once and for all."
+Image: placeholder image of molten lead / metallic texture
+CTA button: "Записаться у ассистента" / "Book via Assistant"
+Card 3 — Ритуальная магия / Ritual Magic
+
+Description (RU): "Глубокие ритуальные практики для трансформации и защиты. Древние обряды, адаптированные для современного мира."
+Description (EN): "Deep ritual practices for transformation and protection. Ancient ceremonies adapted for the modern world."
+Image: placeholder image of ritual candles / mystical symbols
+CTA button: "Записаться у ассистента" / "Book via Assistant"
+9. Interactive Negativity-Cleansing Card Animations ⚡
+This is the most important visual effect. Each service card should have a "negativity layer" — a dark, smoky overlay on the card that gets cleansed when the user interacts.
+
+How it works:
+Each card starts with a subtle dark smoky/foggy overlay on top (like dark negative energy clinging to it). When the user hovers, the negativity gets cleansed differently depending on the card:
+
+🕯️ WAX card — Gentle, slow cleansing:
+CSS
+
+/* Dark negativity overlay on the card */
+.wax-card .negativity-layer {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(20, 0, 30, 0.6) 0%,
+    rgba(40, 10, 50, 0.4) 40%,
+    rgba(10, 5, 15, 0.3) 100%
+  );
+  transition: opacity 2s ease-in-out; /* SLOW and GENTLE — 2 seconds */
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.wax-card:hover .negativity-layer {
+  opacity: 0; /* negativity gently fades away */
+}
+
+/* Card underneath becomes clean and glows like a diamond */
+.wax-card {
+  transition: all 2s ease-in-out;
+}
+
+.wax-card:hover {
+  box-shadow: 
+    0 0 20px rgba(201, 162, 39, 0.2),
+    0 0 60px rgba(201, 162, 39, 0.1),
+    inset 0 0 30px rgba(255, 255, 255, 0.05);
+  border-color: rgba(201, 162, 39, 0.4);
+  /* Clean like a diamond — bright and pure */
+}
+Also: when hovering on the CTA button ("Записаться") inside the wax card, add an additional gentle golden pulse that radiates outward, like the last bit of negativity softly leaving.
+
+⚫ LEAD card — Instant, sharp cleansing:
+CSS
+
+.lead-card .negativity-layer {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(20, 0, 30, 0.7) 0%,
+    rgba(50, 10, 60, 0.5) 40%,
+    rgba(10, 5, 15, 0.4) 100%
+  );
+  transition: opacity 0.15s ease-out; /* INSTANT — 150ms sharp snap */
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.lead-card:hover .negativity-layer {
+  opacity: 0; /* negativity INSTANTLY vanishes */
+}
+
+/* Sharp flash of golden light on hover */
+.lead-card {
+  transition: all 0.15s ease-out;
+}
+
+.lead-card:hover {
+  box-shadow: 
+    0 0 30px rgba(201, 162, 39, 0.4),
+    0 0 80px rgba(201, 162, 39, 0.2);
+  border-color: rgba(201, 162, 39, 0.6);
+  /* Powerful instant purification flash */
+}
+The lead card should feel like a sharp powerful ZAP — the dark energy is ripped away instantly, and the card flashes with bright golden light.
+
+🔮 RITUAL MAGIC card — Mysterious, swirling cleansing:
+CSS
+
+.ritual-card .negativity-layer {
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.ritual-card:hover .negativity-layer {
+  opacity: 0;
+  transform: rotate(10deg) scale(1.3); /* negativity swirls away */
+}
+
+.ritual-card:hover {
+  box-shadow: 
+    0 0 25px rgba(201, 162, 39, 0.25),
+    0 0 50px rgba(201, 162, 39, 0.1);
+}
+After cleansing — Diamond effect:
+When any card is fully cleansed (hover complete), the card should look clean and pure like a diamond:
+
+Subtle white/golden inner glow
+Card background brightens slightly
+A faint sparkle/shimmer CSS animation on the card border
+CSS
+
+@keyframes diamondShimmer {
+  0% { border-color: rgba(201, 162, 39, 0.2); }
+  50% { border-color: rgba(255, 223, 100, 0.5); }
+  100% { border-color: rgba(201, 162, 39, 0.2); }
+}
+
+.service-card:hover {
+  animation: diamondShimmer 2s ease-in-out infinite;
+}
+When the mouse leaves, the negativity slowly creeps back (opacity goes back to original) — as if the dark energy returns without the cleansing power.
+
+Make all animations smooth, elegant, and mystical. The overall feeling should be: "I am being cleansed just by interacting with this website."
+
