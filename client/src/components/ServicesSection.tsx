@@ -50,8 +50,6 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
           borderColor: "#3d3520",
         }}
       >
-        <div className="negativity-layer" />
-
         <div className="relative h-48 md:h-56 overflow-hidden">
           <img
             src={service.image}
@@ -80,19 +78,22 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
             {t(service.descKey)}
           </p>
 
-          <Button
-            data-testid={`button-book-${service.id}`}
-            className={`w-full border tracking-wider uppercase text-xs cta-pulse-${service.id}`}
-            style={{
-              backgroundColor: "#c9a227",
-              borderColor: "rgba(201, 162, 39, 0.4)",
-              color: "#0c0a06",
-            }}
-            onClick={() => window.open(CONTACT_URL, "_blank")}
-          >
-            {t("services.cta")}
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
+          <div className={`btn-negativity-wrap btn-negativity-${service.id}`}>
+            <Button
+              data-testid={`button-book-${service.id}`}
+              className="w-full border tracking-wider uppercase text-xs relative z-[1]"
+              style={{
+                backgroundColor: "#c9a227",
+                borderColor: "rgba(201, 162, 39, 0.4)",
+                color: "#0c0a06",
+              }}
+              onClick={() => window.open(CONTACT_URL, "_blank")}
+            >
+              {t("services.cta")}
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+            <div className="btn-negativity-layer" />
+          </div>
         </div>
       </div>
     </FadeInWhenVisible>
