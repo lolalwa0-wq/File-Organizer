@@ -442,43 +442,97 @@
   }
 }
 
-.wax-negativity {
-  transition:
-    opacity 2.5s ease-in-out,
-    transform 2.5s ease-in-out,
-    filter 2.5s ease-in-out;
+.wax-dark-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 0, 25, 0.92) 0%,
+    rgba(30, 5, 40, 0.88) 30%,
+    rgba(20, 0, 30, 0.9) 60%,
+    rgba(10, 0, 20, 0.95) 100%
+  );
+  transition: opacity 3s ease-in-out;
 }
 
-.wax-cta:hover .wax-negativity {
-  opacity: 0 !important;
-  transform: translateY(15px) scaleY(0.3);
-  filter: blur(8px);
-  animation: none !important;
+.wax-dark-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(40, 5, 55, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 30%, rgba(25, 0, 40, 0.4) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 90%, rgba(35, 5, 50, 0.45) 0%, transparent 40%);
+  animation: darkTendrils 4s ease-in-out infinite alternate;
 }
 
-.wax-cta {
-  transition:
-    background 2.5s ease-in-out,
-    border-color 2.5s ease-in-out,
-    box-shadow 2.5s ease-in-out,
-    color 2.5s ease-in-out;
+@keyframes darkTendrils {
+  0% {
+    opacity: 0.7;
+    transform: scale(1) translate(0, 0);
+  }
+  33% {
+    opacity: 0.85;
+    transform: scale(1.02) translate(2px, -1px);
+  }
+  66% {
+    opacity: 0.75;
+    transform: scale(0.98) translate(-1px, 2px);
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(1.01) translate(1px, 1px);
+  }
 }
 
-.wax-cta:hover {
-  background: rgba(201, 162, 39, 0.1);
-  border-color: rgba(201, 162, 39, 0.5);
+@keyframes waxParticleFall {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    opacity: 0.9;
+  }
+  20% {
+    transform: translate(
+      calc(var(--drift-x) * 0.2),
+      8px
+    ) scale(1.1) rotate(5deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(
+      calc(var(--drift-x) * 0.5),
+      25px
+    ) scale(0.9) rotate(-3deg);
+    opacity: 0.6;
+  }
+  75% {
+    transform: translate(
+      calc(var(--drift-x) * 0.8),
+      50px
+    ) scale(0.6) rotate(8deg);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(
+      var(--drift-x),
+      80px
+    ) scale(0.2) rotate(15deg);
+    opacity: 0;
+  }
+}
+
+.wax-cta .cta-text {
+  transition: all 3s ease-in-out;
+}
+
+.wax-cta:hover .cta-text {
   color: #c9a227;
-  box-shadow:
-    0 0 20px rgba(201, 162, 39, 0.15),
-    0 0 50px rgba(201, 162, 39, 0.08),
-    inset 0 0 20px rgba(255, 255, 255, 0.03);
-}
-
-.wax-cta:not(:hover) .wax-negativity {
-  transition:
-    opacity 4s ease-in,
-    transform 4s ease-in,
-    filter 4s ease-in;
+  text-shadow:
+    0 0 8px rgba(201, 162, 39, 0.3),
+    0 0 20px rgba(201, 162, 39, 0.1);
 }
 
 .lead-negativity {

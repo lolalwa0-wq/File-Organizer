@@ -1,0 +1,256 @@
+The negativity effect is still not visual enough. I don't just want an opacity fade — I want to actually SEE the dark energy leaving the button. Like real dark matter, dark particles, dark smoke physically peeling off and floating away.
+
+Start with the WAX button only for now. We'll do lead later.
+
+What I want to SEE on the wax button:
+When I hover, dark smoky particles should visually detach from the button and float away — melting, dripping, dissolving into nothing. Like dark liquid wax dripping off. Not just "opacity goes to 0" — actual moving dark pieces leaving.
+
+Implementation — use JavaScript + CSS for particle animation:
+JavaScript
+
+// === WAX NEGATIVITY PARTICLE SYSTEM ===
+
+function initWaxNegativity() {
+  const waxButton = document.querySelector('.wax-cta');
+  if (!waxButton) return;
+
+  // Create dark particles container
+  const particleContainer = document.createElement('div');
+  particleContainer.classList.add('negativity-particles');
+  particleContainer.style.cssText = `
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 4;
+    overflow: visible;
+    border-radius: inherit;
+  `;
+  waxButton.appendChild(particleContainer);
+
+  // Dark overlay that will reduce as particles leave
+  const darkOverlay = document.createElement('div');
+  darkOverlay.classList.add('wax-dark-overlay');
+  darkOverlay.style.cssText = `
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    border-radius: inherit;
+    background: linear-gradient(
+      135deg,
+      rgba(15, 0, 25, 0.92) 0%,
+      rgba(30, 5, 40, 0.88) 30%,
+      rgba(20, 0, 30, 0.9) 60%,
+      rgba(10, 0, 20, 0.95) 100%
+    );
+    transition: opacity 3s ease-in-out;
+  `;
+  waxButton.appendChild(darkOverlay);
+
+  let isHovering = false;
+  let particleInterval = null;
+  let cleanupProgress = 0;
+
+  function createDarkParticle() {
+    const particle = document.createElement('div');
+    const size = Math.random() * 12 + 6; // 6-18px
+    const startX = Math.random() * waxButton.offsetWidth;
+    const startY = Math.random() * waxButton.offsetHeight;
+    const driftX = (Math.random() - 0.5) * 80;
+    const duration = Math.random() * 2000 + 1500; // 1.5-3.5s
+
+    // Each particle is a dark blob
+    particle.style.cssText = `
+      position: absolute;
+      left: ${startX}px;
+      top: ${startY}px;
+      width: ${size}px;
+      height: ${size}px;
+      border-radius: 50%;
+      background: radial-gradient(circle,
+        rgba(20, 0, 35, 0.9) 0%,
+        rgba(35, 5, 50, 0.7) 40%,
+        rgba(15, 0, 25, 0.4) 70%,
+        transparent 100%
+      );
+      pointer-events: none;
+      z-index: 5;
+      box-shadow: 
+        0 0 ${size/2}px rgba(20, 0, 35, 0.6),
+        0 0 ${size}px rgba(30, 5, 45, 0.3);
+      animation: waxParticleFall ${duration}ms ease-in forwards;
+      --drift-x: ${driftX}px;
+    `;
+
+    particleContainer.appendChild(particle);
+
+    // Remove particle after animation
+    setTimeout(() => {
+      particle.remove();
+    }, duration);
+  }
+
+  // On hover — start releasing dark particles
+  waxButton.addEventListener('mouseenter', () => {
+    isHovering = true;
+    cleanupProgress = 0;
+
+    // Spawn particles gradually — dark blobs floating away
+    let spawnCount = 0;
+    particleInterval = setInterval(() => {
+      if (!isHovering) return;
+
+      // Spawn 2-4 particles at a time
+      const batch = Math.floor(Math.random() * 3) + 2;
+      for (let i = 0; i < batch; i++) {
+        createDarkParticle();
+      }
+
+      spawnCount++;
+      cleanupProgress = Math.min(spawnCount / 20, 1);
+
+      // Gradually fade the dark overlay as particles leave
+      darkOverlay.style.opacity = 1 - cleanupProgress;
+
+      // After enough particles, button is clean
+      if (spawnCount > 25) {
+        darkOverlay.style.opacity = 0;
+        clearInterval(particleInterval);
+      }
+    }, 120); // new particles every 120ms
+
+    // Button slowly starts glowing gold
+    waxButton.style.transition = 'all 3s ease-in-out';
+    waxButton.style.borderColor = 'rgba(201, 162, 39, 0.5)';
+    waxButton.style.boxShadow = `
+      0 0 20px rgba(201, 162, 39, 0.15),
+      0 0 50px rgba(201, 162, 39, 0.08)
+    `;
+  });
+
+  // On mouse leave — negativity creeps back
+  waxButton.addEventListener('mouseleave', () => {
+    isHovering = false;
+    clearInterval(particleInterval);
+
+    // Dark overlay creeps back slowly
+    darkOverlay.style.transition = 'opacity 5s ease-in';
+    darkOverlay.style.opacity = 1;
+
+    // Button loses its glow
+    waxButton.style.transition = 'all 5s ease-in';
+    waxButton.style.borderColor = 'rgba(201, 162, 39, 0.15)';
+    waxButton.style.boxShadow = 'none';
+  });
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', initWaxNegativity);
+CSS for the particle falling animation:
+CSS
+
+@keyframes waxParticleFall {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    opacity: 0.9;
+  }
+  20% {
+    transform: translate(
+      calc(var(--drift-x) * 0.2),
+      8px
+    ) scale(1.1) rotate(5deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(
+      calc(var(--drift-x) * 0.5),
+      25px
+    ) scale(0.9) rotate(-3deg);
+    opacity: 0.6;
+  }
+  75% {
+    transform: translate(
+      calc(var(--drift-x) * 0.8),
+      50px
+    ) scale(0.6) rotate(8deg);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(
+      var(--drift-x),
+      80px
+    ) scale(0.2) rotate(15deg);
+    opacity: 0;
+  }
+}
+
+/* Dark smoky tendrils on the button before hover */
+.wax-dark-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: 
+    radial-gradient(ellipse at 20% 50%, rgba(40, 5, 55, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 30%, rgba(25, 0, 40, 0.4) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 90%, rgba(35, 5, 50, 0.45) 0%, transparent 40%);
+  animation: darkTendrils 4s ease-in-out infinite alternate;
+}
+
+@keyframes darkTendrils {
+  0% {
+    opacity: 0.7;
+    transform: scale(1) translate(0, 0);
+  }
+  33% {
+    opacity: 0.85;
+    transform: scale(1.02) translate(2px, -1px);
+  }
+  66% {
+    opacity: 0.75;
+    transform: scale(0.98) translate(-1px, 2px);
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(1.01) translate(1px, 1px);
+  }
+}
+
+/* Clean diamond state of the button (visible after negativity leaves) */
+.wax-cta .cta-text {
+  transition: all 3s ease-in-out;
+}
+
+.wax-cta:hover .cta-text {
+  color: #c9a227;
+  text-shadow: 
+    0 0 8px rgba(201, 162, 39, 0.3),
+    0 0 20px rgba(201, 162, 39, 0.1);
+}
+
+/* Diamond shimmer border when clean */
+@keyframes cleanDiamondPulse {
+  0% { border-color: rgba(201, 162, 39, 0.4); }
+  50% { border-color: rgba(255, 223, 100, 0.6); }
+  100% { border-color: rgba(201, 162, 39, 0.4); }
+}
+What the user should experience:
+Before hover: Button is covered in a dark, scary, breathing overlay — it looks cursed, alive with dark energy
+
+On hover — the cleansing begins:
+
+Dark particles start physically detaching from the button
+They drip and float downward like melting dark wax
+Each particle is a dark smoky blob that drifts away and dissolves
+New particles keep spawning and floating off
+The dark overlay gradually fades as more particles leave
+The button underneath slowly starts glowing gold
+After ~3 seconds the button is fully clean — shining like a diamond
+Mouse leaves:
+
+Dark energy slowly creeps back over 5 seconds
+Golden glow fades
+Button returns to its cursed state
+This is ONLY for the wax button. We will do lead separately later.
+
+Do not simplify. Implement the full particle system. The dark blobs physically leaving the button is the key visual.
