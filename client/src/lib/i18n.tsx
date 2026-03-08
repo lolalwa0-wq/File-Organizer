@@ -54,6 +54,12 @@ const translations: Record<Language, Record<string, string>> = {
     "footer.contact.desc": "For bookings and inquiries, reach out to my assistant who will guide you through the process.",
     "footer.rights": "All rights reserved",
     "footer.made": "Crafted with intention and purpose",
+    "footer.legal.privacy": "Privacy Policy",
+    "footer.legal.offer": "Terms of Service",
+    "footer.legal.terms": "Terms of Use",
+    "footer.legal.refund": "Refund Policy",
+    "legal.placeholder": "This page will be updated with full legal information soon.",
+    "legal.back": "Back to Home",
   },
   ru: {
     "nav.about": "Обо мне",
@@ -100,6 +106,12 @@ const translations: Record<Language, Record<string, string>> = {
     "footer.contact.desc": "Для записи и вопросов свяжитесь с моим ассистентом, который проведёт вас через весь процесс.",
     "footer.rights": "Все права защищены",
     "footer.made": "Создано с намерением и целью",
+    "footer.legal.privacy": "Политика конфиденциальности",
+    "footer.legal.offer": "Договор оферты",
+    "footer.legal.terms": "Правила пользования",
+    "footer.legal.refund": "Политика возврата денег",
+    "legal.placeholder": "Эта страница будет обновлена полной юридической информацией в ближайшее время.",
+    "legal.back": "На главную",
   },
 };
 

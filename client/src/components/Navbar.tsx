@@ -41,9 +41,9 @@ export function Navbar() {
           data-testid="link-home"
           aria-label="Scroll to top"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="font-serif text-xl tracking-wider text-foreground/90"
+          className="font-serif text-xl tracking-wider"
         >
-          <span className="glow-text">LUMINA</span>
+          <span className="glow-text" style={{ color: "#c9a227" }}>LUMINA</span>
         </button>
 
         <div className="hidden md:flex items-center gap-8">
@@ -52,7 +52,8 @@ export function Navbar() {
               key={link.id}
               data-testid={`link-nav-${link.id}`}
               onClick={() => scrollTo(link.id)}
-              className="text-sm tracking-widest uppercase text-muted-foreground hover-elevate rounded-md px-2 py-1"
+              className="text-sm tracking-widest uppercase hover-elevate rounded-md px-2 py-1"
+              style={{ color: "#8a7d6b" }}
             >
               {link.label}
             </button>
@@ -61,7 +62,8 @@ export function Navbar() {
             data-testid="button-lang-toggle"
             aria-label={lang === "en" ? "Switch to Russian" : "Switch to English"}
             onClick={() => setLang(lang === "en" ? "ru" : "en")}
-            className="flex items-center gap-1.5 text-sm text-muted-foreground hover-elevate rounded-md px-2 py-1"
+            className="flex items-center gap-1.5 text-sm hover-elevate rounded-md px-2 py-1"
+            style={{ color: "#8a7d6b" }}
           >
             <Globe className="w-4 h-4" />
             <span className="uppercase tracking-wider">{lang === "en" ? "RU" : "EN"}</span>
@@ -94,7 +96,8 @@ export function Navbar() {
                   key={link.id}
                   data-testid={`link-mobile-nav-${link.id}`}
                   onClick={() => scrollTo(link.id)}
-                  className="text-sm tracking-widest uppercase text-muted-foreground text-left py-2"
+                  className="text-sm tracking-widest uppercase text-left py-2"
+                  style={{ color: "#8a7d6b" }}
                 >
                   {link.label}
                 </button>
@@ -103,7 +106,8 @@ export function Navbar() {
                 data-testid="button-mobile-lang-toggle"
                 aria-label={lang === "en" ? "Switch to Russian" : "Switch to English"}
                 onClick={() => setLang(lang === "en" ? "ru" : "en")}
-                className="flex items-center gap-1.5 text-sm text-muted-foreground py-2"
+                className="flex items-center gap-1.5 text-sm py-2"
+                style={{ color: "#8a7d6b" }}
               >
                 <Globe className="w-4 h-4" />
                 <span className="uppercase tracking-wider">{lang === "en" ? "Русский" : "English"}</span>

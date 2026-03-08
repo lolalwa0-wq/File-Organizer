@@ -6,11 +6,16 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { I18nProvider } from "@/lib/i18n";
 import NotFound from "@/pages/not-found";
 import LandingPage from "@/pages/landing";
+import LegalPage from "@/pages/legal";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={LandingPage} />
+      <Route path="/privacy" component={LegalPage} />
+      <Route path="/terms-of-service" component={LegalPage} />
+      <Route path="/terms-of-use" component={LegalPage} />
+      <Route path="/refund-policy" component={LegalPage} />
       <Route component={NotFound} />
     </Switch>
   );

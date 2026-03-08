@@ -29,12 +29,13 @@ export function AboutSection() {
       <div className="relative z-10 max-w-5xl mx-auto px-6">
         <FadeInWhenVisible>
           <div className="text-center mb-16 md:mb-20">
-            <p className="text-sm tracking-[0.3em] uppercase text-purple-400/70 mb-4">
+            <p className="text-sm tracking-[0.3em] uppercase mb-4" style={{ color: "rgba(201, 162, 39, 0.7)" }}>
               {t("about.subtitle")}
             </p>
             <h2
               data-testid="text-about-title"
-              className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold glow-text bg-gradient-to-r from-purple-200 via-white to-purple-200 bg-clip-text text-transparent"
+              className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold glow-text"
+              style={{ color: "#c9a227" }}
             >
               {t("about.title")}
             </h2>
@@ -44,15 +45,27 @@ export function AboutSection() {
         <div className="grid md:grid-cols-[1fr_1.5fr] gap-12 md:gap-16 items-start mb-20">
           <FadeInWhenVisible delay={0.1}>
             <div className="relative">
-              <div className="aspect-[3/4] rounded-md bg-gradient-to-br from-purple-900/40 to-purple-800/20 border border-purple-500/20 glow-border flex items-center justify-center">
+              <div
+                className="aspect-[3/4] rounded-md border glow-border flex items-center justify-center"
+                style={{
+                  background: "linear-gradient(to bottom right, rgba(201, 162, 39, 0.15), rgba(201, 162, 39, 0.05))",
+                  borderColor: "rgba(201, 162, 39, 0.2)",
+                }}
+              >
                 <div className="text-center p-6">
-                  <Sparkles className="w-12 h-12 text-purple-400/60 mx-auto mb-4 animate-pulse-glow" />
-                  <p className="text-sm text-purple-300/50 tracking-wider uppercase">
+                  <Sparkles className="w-12 h-12 mx-auto mb-4 animate-pulse-glow" style={{ color: "rgba(201, 162, 39, 0.6)" }} />
+                  <p className="text-sm tracking-wider uppercase" style={{ color: "rgba(201, 162, 39, 0.5)" }}>
                     {t("hero.subtitle")}
                   </p>
                 </div>
               </div>
-              <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-md bg-gradient-to-br from-purple-600/20 to-transparent border border-purple-500/10" />
+              <div
+                className="absolute -bottom-4 -right-4 w-24 h-24 rounded-md border"
+                style={{
+                  background: "linear-gradient(to bottom right, rgba(201, 162, 39, 0.12), transparent)",
+                  borderColor: "rgba(201, 162, 39, 0.1)",
+                }}
+              />
             </div>
           </FadeInWhenVisible>
 
@@ -77,10 +90,17 @@ export function AboutSection() {
         </div>
 
         <FadeInWhenVisible delay={0.2}>
-          <div className="rounded-md border border-purple-500/15 bg-purple-950/20 p-8 md:p-12 mb-16 glow-border">
+          <div
+            className="rounded-md border p-8 md:p-12 mb-16 glow-border"
+            style={{
+              borderColor: "rgba(201, 162, 39, 0.15)",
+              backgroundColor: "rgba(201, 162, 39, 0.04)",
+            }}
+          >
             <h3
               data-testid="text-philosophy-title"
-              className="font-serif text-2xl md:text-3xl font-semibold mb-4 bg-gradient-to-r from-purple-200 to-purple-100 bg-clip-text text-transparent"
+              className="font-serif text-2xl md:text-3xl font-semibold mb-4"
+              style={{ color: "#c9a227" }}
             >
               {t("about.philosophy.title")}
             </h3>
@@ -97,7 +117,8 @@ export function AboutSection() {
           <div>
             <h3
               data-testid="text-credentials-title"
-              className="font-serif text-2xl md:text-3xl font-semibold mb-8 text-center bg-gradient-to-r from-purple-200 to-purple-100 bg-clip-text text-transparent"
+              className="font-serif text-2xl md:text-3xl font-semibold mb-8 text-center"
+              style={{ color: "#c9a227" }}
             >
               {t("about.credentials.title")}
             </h3>
@@ -106,9 +127,13 @@ export function AboutSection() {
                 <FadeInWhenVisible key={i} delay={0.3 + i * 0.1}>
                   <div
                     data-testid={`card-credential-${i}`}
-                    className="flex items-start gap-4 p-5 rounded-md border border-purple-500/10 bg-purple-950/15"
+                    className="flex items-start gap-4 p-5 rounded-md border"
+                    style={{
+                      borderColor: "rgba(201, 162, 39, 0.1)",
+                      backgroundColor: "rgba(201, 162, 39, 0.03)",
+                    }}
                   >
-                    <cred.icon className="w-5 h-5 text-purple-400/70 mt-0.5 flex-shrink-0" />
+                    <cred.icon className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: "rgba(201, 162, 39, 0.7)" }} />
                     <span className="text-foreground/70 text-sm md:text-base">{cred.text}</span>
                   </div>
                 </FadeInWhenVisible>

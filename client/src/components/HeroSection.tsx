@@ -26,7 +26,8 @@ export function HeroSection() {
         >
           <p
             data-testid="text-hero-subtitle"
-            className="text-sm md:text-base tracking-[0.3em] uppercase text-purple-300/80 mb-6"
+            className="text-sm md:text-base tracking-[0.3em] uppercase mb-6"
+            style={{ color: "rgba(201, 162, 39, 0.8)" }}
           >
             {t("hero.subtitle")}
           </p>
@@ -34,7 +35,7 @@ export function HeroSection() {
             data-testid="text-hero-title"
             className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight"
           >
-            <span className="glow-text bg-gradient-to-r from-purple-200 via-white to-purple-200 bg-clip-text text-transparent">
+            <span className="glow-text" style={{ color: "#c9a227" }}>
               LUMINA
             </span>
           </h1>
@@ -45,7 +46,8 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-          className="text-lg md:text-xl text-purple-100/60 max-w-2xl mx-auto mb-12 leading-relaxed"
+          className="text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed"
+          style={{ color: "rgba(201, 162, 39, 0.5)" }}
         >
           {t("hero.tagline")}
         </motion.p>
@@ -61,7 +63,12 @@ export function HeroSection() {
             onClick={() =>
               document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })
             }
-            className="bg-purple-600/80 border border-purple-400/30 text-white px-8 tracking-wider uppercase text-sm glow-border"
+            className="border px-8 tracking-wider uppercase text-sm glow-border"
+            style={{
+              backgroundColor: "#c9a227",
+              borderColor: "rgba(201, 162, 39, 0.4)",
+              color: "#0c0a06",
+            }}
           >
             {t("hero.cta")}
           </Button>
@@ -73,7 +80,7 @@ export function HeroSection() {
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
       >
-        <ChevronDown className="w-6 h-6 text-purple-300/40" />
+        <ChevronDown className="w-6 h-6" style={{ color: "rgba(201, 162, 39, 0.4)" }} />
       </motion.div>
     </section>
   );

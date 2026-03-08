@@ -53,7 +53,11 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
     <FadeInWhenVisible delay={0.1 + index * 0.15}>
       <Card
         data-testid={`card-service-${service.id}`}
-        className="bg-purple-950/20 border-purple-500/15 rounded-md group"
+        className="rounded-md group h-full"
+        style={{
+          backgroundColor: "rgba(201, 162, 39, 0.04)",
+          borderColor: "#3d3520",
+        }}
       >
         <div className="relative h-48 md:h-56 overflow-hidden rounded-t-md">
           <img
@@ -61,45 +65,60 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
             alt={t(service.titleKey)}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-purple-950/90 via-purple-950/40 to-transparent" />
+          <div
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(to top, rgba(12, 10, 6, 0.9), rgba(12, 10, 6, 0.4), transparent)" }}
+          />
           <div className="absolute bottom-4 left-5">
             <span
               data-testid={`text-price-${service.id}`}
-              className="font-serif text-3xl font-bold bg-gradient-to-r from-amber-200 to-amber-400 bg-clip-text text-transparent glow-text-gold"
+              className="font-serif text-3xl font-bold glow-text-gold"
+              style={{ color: "#c9a227" }}
             >
               {t(service.priceKey)}
             </span>
           </div>
         </div>
 
-        <CardContent className="p-6 md:p-8">
+        <CardContent className="p-5 md:p-6">
           <h3
             data-testid={`text-service-title-${service.id}`}
-            className="font-serif text-2xl md:text-3xl font-semibold mb-4 bg-gradient-to-r from-purple-100 to-white bg-clip-text text-transparent"
+            className="font-serif text-xl md:text-2xl font-semibold mb-3"
+            style={{ color: "#c9a227" }}
           >
             {t(service.titleKey)}
           </h3>
           <p
             data-testid={`text-service-desc-${service.id}`}
-            className="text-foreground/60 leading-relaxed mb-6 text-sm md:text-base"
+            className="leading-relaxed mb-5 text-sm md:text-base break-words"
+            style={{ color: "#8a7d6b", overflowWrap: "break-word", wordWrap: "break-word" }}
           >
             {t(service.descKey)}
           </p>
 
-          <div className="flex flex-col gap-2 mb-6 text-sm text-foreground/50">
+          <div className="flex flex-col gap-2 mb-5 text-sm" style={{ color: "#8a7d6b" }}>
             <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-purple-400/60" />
-              <span data-testid={`text-duration-${service.id}`}>{t(service.durationKey)}</span>
+              <Clock className="w-4 h-4 flex-shrink-0" style={{ color: "rgba(201, 162, 39, 0.6)" }} />
+              <span data-testid={`text-duration-${service.id}`} className="break-words" style={{ overflowWrap: "break-word" }}>
+                {t(service.durationKey)}
+              </span>
             </div>
             <div className="flex items-center gap-2">
-              <Monitor className="w-4 h-4 text-purple-400/60" />
-              <span data-testid={`text-format-${service.id}`}>{t(service.formatKey)}</span>
+              <Monitor className="w-4 h-4 flex-shrink-0" style={{ color: "rgba(201, 162, 39, 0.6)" }} />
+              <span data-testid={`text-format-${service.id}`} className="break-words" style={{ overflowWrap: "break-word" }}>
+                {t(service.formatKey)}
+              </span>
             </div>
           </div>
 
           <Button
             data-testid={`button-book-${service.id}`}
-            className="w-full bg-purple-600/70 border border-purple-400/25 text-white tracking-wider uppercase text-xs glow-border"
+            className="w-full border tracking-wider uppercase text-xs glow-border"
+            style={{
+              backgroundColor: "#c9a227",
+              borderColor: "rgba(201, 162, 39, 0.4)",
+              color: "#0c0a06",
+            }}
             onClick={() => window.open(CONTACT_URL, "_blank")}
           >
             {t("services.cta")}
@@ -120,17 +139,21 @@ export function ServicesSection() {
       data-testid="section-services"
       className="relative py-24 md:py-32"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-950/10 to-transparent" />
+      <div
+        className="absolute inset-0"
+        style={{ background: "linear-gradient(to bottom, transparent, rgba(201, 162, 39, 0.03), transparent)" }}
+      />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         <FadeInWhenVisible>
           <div className="text-center mb-16 md:mb-20">
-            <p className="text-sm tracking-[0.3em] uppercase text-purple-400/70 mb-4">
+            <p className="text-sm tracking-[0.3em] uppercase mb-4" style={{ color: "rgba(201, 162, 39, 0.7)" }}>
               {t("services.subtitle")}
             </p>
             <h2
               data-testid="text-services-title"
-              className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold glow-text bg-gradient-to-r from-purple-200 via-white to-purple-200 bg-clip-text text-transparent"
+              className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold glow-text"
+              style={{ color: "#c9a227" }}
             >
               {t("services.title")}
             </h2>
@@ -146,7 +169,8 @@ export function ServicesSection() {
         <FadeInWhenVisible delay={0.5}>
           <p
             data-testid="text-services-note"
-            className="text-center text-sm text-muted-foreground/70 max-w-xl mx-auto"
+            className="text-center text-sm max-w-xl mx-auto"
+            style={{ color: "#8a7d6b" }}
           >
             {t("services.note")}
           </p>
