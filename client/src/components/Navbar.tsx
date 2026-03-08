@@ -1,8 +1,50 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useI18n } from "@/lib/i18n";
 import { Menu, X, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+
+let activeFlash: HTMLElement | null = null;
+let flashTimer: ReturnType<typeof setTimeout> | null = null;
+let glowTimer1: ReturnType<typeof setTimeout> | null = null;
+let glowTimer2: ReturnType<typeof setTimeout> | null = null;
+
+function triggerMagicalScroll(id: string) {
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const target = document.getElementById(id);
+  if (!target) return;
+
+  if (prefersReduced) {
+    target.scrollIntoView({ behavior: "auto" });
+    return;
+  }
+
+  if (activeFlash) {
+    activeFlash.remove();
+    activeFlash = null;
+  }
+  if (flashTimer) clearTimeout(flashTimer);
+  if (glowTimer1) clearTimeout(glowTimer1);
+  if (glowTimer2) clearTimeout(glowTimer2);
+
+  const flash = document.createElement("div");
+  flash.className = "scroll-mist-flash";
+  document.body.appendChild(flash);
+  activeFlash = flash;
+
+  target.scrollIntoView({ behavior: "smooth" });
+
+  glowTimer1 = setTimeout(() => {
+    target.classList.add("section-glow");
+    glowTimer2 = setTimeout(() => target.classList.remove("section-glow"), 1500);
+  }, 400);
+
+  flashTimer = setTimeout(() => {
+    flash.remove();
+    activeFlash = null;
+  }, 850);
+}
 
 export function Navbar() {
   const { lang, setLang, t } = useI18n();
@@ -15,10 +57,10 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollTo = (id: string) => {
+  const scrollTo = useCallback((id: string) => {
     setMobileOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
+    triggerMagicalScroll(id);
+  }, []);
 
   const navLinks = [
     { label: t("nav.about"), id: "about" },
@@ -52,7 +94,7 @@ export function Navbar() {
               key={link.id}
               data-testid={`link-nav-${link.id}`}
               onClick={() => scrollTo(link.id)}
-              className="text-sm tracking-widest uppercase hover-elevate rounded-md px-2 py-1"
+              className="text-sm tracking-widest uppercase nav-link-gold rounded-md px-2 py-1"
               style={{ color: "#8a7d6b" }}
             >
               {link.label}
@@ -62,7 +104,7 @@ export function Navbar() {
             data-testid="button-lang-toggle"
             aria-label={lang === "en" ? "Switch to Russian" : "Switch to English"}
             onClick={() => setLang(lang === "en" ? "ru" : "en")}
-            className="flex items-center gap-1.5 text-sm hover-elevate rounded-md px-2 py-1"
+            className="flex items-center gap-1.5 text-sm nav-link-gold rounded-md px-2 py-1"
             style={{ color: "#8a7d6b" }}
           >
             <Globe className="w-4 h-4" />
@@ -96,7 +138,7 @@ export function Navbar() {
                   key={link.id}
                   data-testid={`link-mobile-nav-${link.id}`}
                   onClick={() => scrollTo(link.id)}
-                  className="text-sm tracking-widest uppercase text-left py-2"
+                  className="text-sm tracking-widest uppercase text-left py-2 nav-link-gold"
                   style={{ color: "#8a7d6b" }}
                 >
                   {link.label}
@@ -106,7 +148,7 @@ export function Navbar() {
                 data-testid="button-mobile-lang-toggle"
                 aria-label={lang === "en" ? "Switch to Russian" : "Switch to English"}
                 onClick={() => setLang(lang === "en" ? "ru" : "en")}
-                className="flex items-center gap-1.5 text-sm py-2"
+                className="flex items-center gap-1.5 text-sm py-2 nav-link-gold"
                 style={{ color: "#8a7d6b" }}
               >
                 <Globe className="w-4 h-4" />

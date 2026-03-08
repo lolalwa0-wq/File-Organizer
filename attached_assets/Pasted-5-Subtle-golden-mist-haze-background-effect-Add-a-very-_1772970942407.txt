@@ -1,0 +1,94 @@
+5. Subtle golden mist/haze background effect
+Add a very subtle golden fog/mist layer across the entire page background. It should be barely visible — like a mysterious atmospheric haze. Implementation:
+
+CSS
+
+/* Floating golden mist overlay */
+.golden-mist::before,
+.golden-mist::after {
+  content: '';
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 162, 39, 0.03) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: floatMist 20s ease-in-out infinite alternate;
+}
+
+.golden-mist::before {
+  top: 10%;
+  left: -10%;
+}
+
+.golden-mist::after {
+  bottom: 20%;
+  right: -10%;
+  animation-delay: -10s;
+}
+
+@keyframes floatMist {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+  50% { transform: translate(50px, 30px) scale(1.2); opacity: 0.6; }
+  100% { transform: translate(-30px, -20px) scale(1); opacity: 0.3; }
+}
+Add 2-3 of these soft golden glowing orbs floating slowly across the page. They should be very faint (opacity 0.03-0.06) — the user should barely notice them but feel the mystical atmosphere.
+
+6. Magical golden navigation with scroll effect
+The navigation links "Обо мне" / "Услуги" / "Контакт" (and their English versions "About" / "Services" / "Contact") should have this behavior:
+
+On hover:
+Text color smoothly transitions to gold #c9a227
+A subtle golden glow appears around the text
+CSS
+
+nav a {
+  transition: all 0.4s ease;
+}
+nav a:hover {
+  color: #c9a227;
+  text-shadow: 0 0 15px rgba(201, 162, 39, 0.4);
+}
+On click — magical scroll:
+When the user clicks a nav link, the page should smoothly scroll down to the corresponding section with a golden mist dissolve transition effect:
+
+A golden mist/smoke flash briefly appears across the screen (very fast, 0.5-0.8s)
+The page smoothly scrolls to the target section with scroll-behavior: smooth
+The target section briefly glows with a faint gold pulse when it comes into view, then fades
+Think of it as: the user clicks "About me" → a golden magical fog briefly flashes → the page magically dissolves/scrolls down to that section → the section softly glows gold for a moment
+
+Implementation approach:
+
+JavaScript
+
+// On nav click:
+// 1. Show golden mist overlay (opacity 0 → 0.3 → 0) over 600ms
+// 2. Simultaneously smooth scroll to target section
+// 3. Add a brief golden glow animation to target section
+
+.scroll-mist-flash {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, rgba(201, 162, 39, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 999;
+  animation: mistFlash 0.8s ease-in-out forwards;
+}
+
+@keyframes mistFlash {
+  0% { opacity: 0; }
+  40% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.section-glow {
+  animation: sectionPulse 1.5s ease-out forwards;
+}
+
+@keyframes sectionPulse {
+  0% { box-shadow: 0 0 0px rgba(201, 162, 39, 0); }
+  30% { box-shadow: 0 0 40px rgba(201, 162, 39, 0.15); }
+  100% { box-shadow: 0 0 0px rgba(201, 162, 39, 0); }
+}
+Make it feel magical and elegant, not flashy. The transitions should be smooth and subtle — like mystical energy guiding the user through the page.
