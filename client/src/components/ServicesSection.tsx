@@ -2,6 +2,7 @@ import { useI18n } from "@/lib/i18n";
 import { FadeInWhenVisible } from "@/components/FadeInWhenVisible";
 import { ArrowRight } from "lucide-react";
 import { WaxParticleButton } from "@/components/WaxParticleButton";
+import { LeadParticleButton } from "@/components/LeadParticleButton";
 
 interface ServiceData {
   id: string;
@@ -80,6 +81,8 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
 
           {service.id === "wax" ? (
             <WaxParticleButton />
+          ) : service.id === "lead" ? (
+            <LeadParticleButton />
           ) : (
             <button
               data-testid={`button-book-${service.id}`}
