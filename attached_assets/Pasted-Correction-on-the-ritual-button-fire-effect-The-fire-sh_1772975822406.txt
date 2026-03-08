@@ -1,0 +1,51 @@
+Correction on the ritual button fire effect:
+
+The fire should NOT be a simple gradient sweep moving left to right. It needs to look like REAL FIRE — chaotic, alive, flickering, dancing. And it should burn faster than what I described before.
+
+What I actually want:
+Imagine you set a piece of dark paper on fire from the left edge. What happens in real life:
+
+The fire catches on the left side — not as a clean line but as irregular, jagged, living flames
+The flames dance and flicker unpredictably — tongues of fire jump up and down, some parts burn faster than others
+The burning edge is not straight — it's rough, organic, chaotic
+The fire spreads quickly across the surface — the whole thing burns in about 1.2-1.5 seconds, not 2.5
+You can see multiple colors in the flame: bright yellow core, orange middle, red edges, dark tips
+Burning pieces curl and break off, falling as glowing ash
+Fire implementation details:
+Create multiple flame tongue elements (8-12) along the burning edge — each one is a separate animated element
+Each flame tongue has different height, speed, and flicker timing — they are NOT synchronized
+Flame tongues should dance/wiggle vertically — oscillating up and down rapidly
+Use colors:
+Core: #fff7a0 (bright yellow-white)
+Middle: #ffa500 (orange)
+Outer: #ff4500 (red-orange)
+Tips: #8b0000 (dark red)
+Use mix-blend-mode: screen or similar for glow effect
+Each flame tongue element could use border-radius: 0 80% 0 80% rotated to look like a flame shape
+Add filter: blur(1-2px) for soft fire glow
+Speed — FASTER:
+The fire sweeps across the button in 1.2-1.5 seconds — not slow, it burns FAST like real fire
+But it's not instant like lead — you can still watch it burn
+Ash particles spawn rapidly as the fire moves — more particles, faster spawn rate than wax
+Ash particles:
+Smaller than wax drops (2-6px)
+Some are glowing orange embers, some are gray ash
+They fall down with a curling motion — like real burning paper curling as it falls
+Add slight rotate animation as they fall
+They fade out and dissolve quickly
+The fire glow:
+As the fire burns across, there should be a warm orange-gold light emanating from the flame area
+This creates a warm glow on the button surface near the fire
+After fire passes — the warm glow transitions to clean golden diamond glow
+Key difference from before:
+Before (wrong) ❌	Now (correct) ✅
+Clean gradient line moving left→right	Chaotic jagged flame edge
+Smooth predictable motion	Flickering unpredictable fire tongues
+2.5 seconds slow	1.2-1.5 seconds — burns fast
+Looks like a UI animation	Looks like actual fire burning paper
+Single color	Yellow → orange → red → dark tips
+Mouse leave — darkness returns:
+No fire on return — the dark ash just silently creeps back from right to left over 5 seconds
+Like cold dead ash slowly re-covering the button
+No particles, no flame — just eerie silent return of darkness
+The fire must feel ALIVE. Not a CSS transition — actual dancing, flickering, chaotic flame elements. Make it look like the button is literally being set on fire and the curse is burning away.
