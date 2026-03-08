@@ -1,0 +1,52 @@
+Correction on the ritual fire pause/resume behavior:
+
+Current problem: When I hover, fire starts burning. If I move mouse away and then hover again, the fire restarts from the beginning. This looks jarring and unnatural.
+
+What I actually want:
+
+The flow:
+I hover → fire starts burning from left to right
+Fire reaches ~50% (middle of button)
+I move mouse away → fire pauses, the ash/negativity starts creeping back from the right side, slowly covering the clean part again
+Ash reaches ~30% (so now 30% is dark again, 20% is still clean in the middle)
+I hover again → ash stops, fire continues from where the ash currently is (at ~30%), NOT from 0%
+Fire burns through the remaining dark part
+Button becomes fully clean
+In other words:
+Hover = fire burns (left to right, from current position)
+Mouse leave = negativity returns (right to left, creeping back)
+Hover again = fire continues (from wherever the negativity currently is)
+Both fire and negativity share the same progress value:
+
+Fire increases the progress (burns more)
+Negativity decreases the progress (covers more)
+They never reset to 0 or 100 instantly — always smooth transition
+Example timeline:
+text
+
+Time 0s: Hover → progress 0%, fire starts
+Time 0.5s: progress 40%, fire burning
+Time 0.7s: Mouse leave → fire pauses at 40%, ash starts returning
+Time 1.5s: progress 20% (ash covered 20% back)
+Time 1.7s: Hover again → ash stops at 20%, fire resumes from 20%
+Time 2.5s: progress 100%, fully clean
+Time 3.0s: Mouse leave → ash starts returning from 100%
+Time 8.0s: progress 0%, fully dark again
+Implementation:
+Single progress variable (0 to 1) stored in ref
+On hover:
+Stop any ash-return animation
+Start fire animation that increases progress from current value toward 1
+Fire burns at normal speed (~1.3s for full 0→1)
+On mouse leave:
+Stop fire animation
+Start ash-return animation that decreases progress from current value toward 0
+Ash returns slower (~5s for full 1→0)
+On hover again:
+Stop ash-return animation immediately
+Resume fire animation from current progress value
+Clip-path / overlay position always reflects current progress value
+Key point:
+Fire and ash are two directions of the same progress bar — fire pushes it right, ash pushes it left. Wherever the progress currently is, that's where the action continues from.
+
+No jarring resets. Smooth continuous battle between fire and darkness.

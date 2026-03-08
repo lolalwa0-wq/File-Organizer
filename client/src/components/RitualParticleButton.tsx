@@ -125,7 +125,7 @@ export function RitualParticleButton() {
     setTimeout(() => wisp.remove(), duration + 50);
   }, []);
 
-  const animateSweep = useCallback((startTime: number) => {
+  const animateSweep = useCallback((startTime: number, startProgress: number) => {
     const btn = buttonRef.current;
     const overlay = darkOverlayRef.current;
     const container = particleContainerRef.current;
@@ -134,7 +134,9 @@ export function RitualParticleButton() {
 
     const now = performance.now();
     const elapsed = now - startTime;
-    const progress = Math.min(elapsed / SWEEP_DURATION, 1);
+    const remaining = 1 - startProgress;
+    const sweepTime = SWEEP_DURATION * remaining;
+    const progress = Math.min(startProgress + (elapsed / sweepTime) * remaining, 1);
     sweepProgressRef.current = progress;
 
     const pct = progress * 100;
@@ -160,7 +162,7 @@ export function RitualParticleButton() {
     }
 
     if (progress < 1 && isHoveringRef.current) {
-      animFrameRef.current = requestAnimationFrame(() => animateSweep(startTime));
+      animFrameRef.current = requestAnimationFrame(() => animateSweep(startTime, startProgress));
     } else if (progress >= 1) {
       removeFlameTongues();
       glow.style.opacity = "0";
@@ -176,17 +178,18 @@ export function RitualParticleButton() {
 
     const now = performance.now();
     const elapsed = now - startTime;
-    const returnProgress = Math.min(elapsed / RETURN_DURATION, 1);
-    const currentProgress = startProgress * (1 - returnProgress);
+    const returnTime = RETURN_DURATION * startProgress;
+    const currentProgress = Math.max(startProgress - (elapsed / returnTime) * startProgress, 0);
     sweepProgressRef.current = currentProgress;
 
     const pct = currentProgress * 100;
     overlay.style.clipPath = `inset(0 0 0 ${pct}%)`;
 
-    if (returnProgress < 1 && !isHoveringRef.current) {
+    if (currentProgress > 0 && !isHoveringRef.current) {
       animFrameRef.current = requestAnimationFrame(() => animateReturn(startTime, startProgress));
-    } else if (returnProgress >= 1) {
+    } else if (currentProgress <= 0) {
       overlay.style.clipPath = "none";
+      sweepProgressRef.current = 0;
     }
   }, []);
 
@@ -198,15 +201,18 @@ export function RitualParticleButton() {
     const container = particleContainerRef.current;
     if (!btn || !container) return;
 
+    const currentProgress = sweepProgressRef.current;
+
     btn.style.transition = "border-color 1.3s ease-in-out, box-shadow 1.3s ease-in-out";
     btn.style.borderColor = "rgba(201, 162, 39, 0.3)";
     btn.style.boxShadow = "0 0 10px rgba(201, 162, 39, 0.1)";
 
-    createFlameTongues(container, btn.offsetHeight);
-
-    lastParticleTimeRef.current = 0;
-    const startTime = performance.now();
-    animFrameRef.current = requestAnimationFrame(() => animateSweep(startTime));
+    if (currentProgress < 1) {
+      createFlameTongues(container, btn.offsetHeight);
+      lastParticleTimeRef.current = 0;
+      const startTime = performance.now();
+      animFrameRef.current = requestAnimationFrame(() => animateSweep(startTime, currentProgress));
+    }
   }, [animateSweep, createFlameTongues]);
 
   const handleMouseLeave = useCallback(() => {
@@ -225,9 +231,13 @@ export function RitualParticleButton() {
     btn.style.boxShadow = "none";
 
     const currentProgress = sweepProgressRef.current;
-    if (currentProgress > 0) {
+    if (currentProgress > 0.001) {
       const startTime = performance.now();
       animFrameRef.current = requestAnimationFrame(() => animateReturn(startTime, currentProgress));
+    } else {
+      const overlay = darkOverlayRef.current;
+      if (overlay) overlay.style.clipPath = "none";
+      sweepProgressRef.current = 0;
     }
   }, [animateReturn, removeFlameTongues]);
 
