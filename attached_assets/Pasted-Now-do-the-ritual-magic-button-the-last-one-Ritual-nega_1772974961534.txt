@@ -1,0 +1,80 @@
+Now do the ritual magic button — the last one.
+
+Ritual negativity — what it looks like BEFORE hover:
+The dark overlay should look like thick dark cursed ash/soot covering the button
+Use deep dark warm tones — rgba(25, 10, 5), rgba(35, 15, 8), rgba(20, 8, 3)
+It should feel like something ancient and burned is sitting on the button — like old dark ash from a cursed ritual
+The breathing animation should have a very subtle ember-like red/orange micro-pulse hidden deep inside — like dying coals buried under ash, barely visible
+Ritual negativity — what happens ON HOVER:
+The negativity burns away from LEFT to RIGHT like a candle flame moving across the button:
+
+A visible flame edge appears on the left side of the button
+The flame slowly sweeps from left to right across the button over ~2-2.5 seconds
+The flame line is animated fire — flickering oranges, warm golds, deep reds — alive and dancing
+Everything to the LEFT of the flame is already clean — golden, pure, diamond-like
+Everything to the RIGHT of the flame still has the dark ash — waiting to be burned
+As the flame passes over the dark ash, small ash/ember particles fall downward — like real burning paper:
+Tiny particles, dark gray and warm orange
+They drift slowly downward with slight sideways wobble
+Some particles have a faint orange glow like tiny embers
+They fade out and dissolve as they fall — like ash evaporating
+A very subtle smoke/haze rises upward from the flame line — light, translucent, barely visible
+After the flame reaches the right edge — the button is fully clean and glowing gold
+Visual breakdown of the sweep:
+text
+
+Time 0s (start hover):
+┌─────────────────────────┐
+│ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ │  ← dark cursed ash
+│ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ │
+└─────────────────────────┘
+
+Time 0.5s:
+┌─────────────────────────┐
+│ ✨✨✨🔥▓▓▓▓▓▓▓▓▓▓▓▓▓▓ │  ← flame sweeps right
+│ ✨✨✨🔥▓▓▓▓▓▓▓▓▓▓▓▓▓▓ │     ash falls ↓
+└─────┬─┬────────────────┘
+      ● ●  (ash particles falling)
+      ●
+
+Time 1.5s:
+┌─────────────────────────┐
+│ ✨✨✨✨✨✨✨✨🔥▓▓▓▓▓▓ │  ← most is clean
+│ ✨✨✨✨✨✨✨✨🔥▓▓▓▓▓▓ │
+└────────────┬─┬─────────┘
+             ● ● (ash falling)
+
+Time 2.5s:
+┌─────────────────────────┐
+│ ✨✨✨✨✨✨✨✨✨✨✨✨✨ │  ← fully clean
+│ ✨ Записаться ✨        │     diamond glow
+└─────────────────────────┘
+Implementation approach:
+Use a gradient mask or clip-path that animates from left: 0% to left: 100% to reveal the clean button underneath
+The flame edge is a narrow vertical strip (~20-30px wide) with animated fire colors
+Spawn ash particles along the flame edge as it moves — particles have:
+Small size (3-8px)
+Mix of dark gray rgba(60, 50, 45) and warm ember rgba(200, 100, 30, 0.7)
+Fall downward with gentle wobble (like waxParticleFall but lighter and with slight horizontal sway)
+Some particles glow faintly orange
+Fade out over 1-2 seconds
+Optional: a few very faint smoke wisps rise UPWARD from the flame — nearly invisible, just atmosphere
+Ritual negativity — when mouse LEAVES:
+The ash slowly re-forms from RIGHT to LEFT over 5-6 seconds — like the curse creeping back
+The flame appears briefly on the right edge and sweeps back left, but this time without particles — just the dark overlay returning silently
+Golden glow fades
+The feeling comparison:
+🕯️ Wax	⚫ Lead	🔮 Ritual
+Speed	3 seconds	0.2 seconds	2.5 seconds
+Style	Dripping down	Explosion all directions	Fire sweep left→right
+Particles	Dark round drops fall down	Sharp metal shards fly everywhere	Ash + embers drift down
+Extra	—	Golden flash	Visible flame + faint smoke up
+Feel	Gentle, tender	Powerful, instant	Ancient, ritualistic, mesmerizing
+Return	Creeps back 5s	Reassembles 4-5s	Sweeps back right→left 5-6s
+Summary:
+Fire sweeps LEFT to RIGHT burning the dark ash away
+You can SEE the flame moving across the button
+Ash and embers fall downward gently as the fire passes
+Clean side glows golden like a diamond
+Mouse leave → darkness returns from right to left slowly
+Same component pattern as WaxParticleButton and LeadParticleButton — create RitualParticleButton component.
