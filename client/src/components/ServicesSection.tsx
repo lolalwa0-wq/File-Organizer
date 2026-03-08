@@ -1,8 +1,8 @@
 import { useI18n } from "@/lib/i18n";
 import { FadeInWhenVisible } from "@/components/FadeInWhenVisible";
-import { ArrowRight } from "lucide-react";
 import { WaxParticleButton } from "@/components/WaxParticleButton";
 import { LeadParticleButton } from "@/components/LeadParticleButton";
+import { RitualParticleButton } from "@/components/RitualParticleButton";
 
 interface ServiceData {
   id: string;
@@ -84,17 +84,7 @@ function ServiceCard({ service, index }: { service: ServiceData; index: number }
           ) : service.id === "lead" ? (
             <LeadParticleButton />
           ) : (
-            <button
-              data-testid={`button-book-${service.id}`}
-              className={`cta-button ${service.id}-cta w-full`}
-              onClick={() => window.open(CONTACT_URL, "_blank")}
-            >
-              <span className="cta-text tracking-wider uppercase text-xs flex items-center justify-center gap-2">
-                {t("services.cta")}
-                <ArrowRight className="w-4 h-4" />
-              </span>
-              <div className={`negativity-overlay ${service.id}-negativity`} />
-            </button>
+            <RitualParticleButton />
           )}
         </div>
       </div>

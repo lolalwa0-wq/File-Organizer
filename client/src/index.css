@@ -640,38 +640,184 @@
     0 0 25px rgba(201, 162, 39, 0.2);
 }
 
-.ritual-negativity {
-  transition:
-    opacity 1.5s ease-in-out,
-    transform 1.5s ease-in-out,
-    filter 1.5s ease-in-out;
+.ritual-dark-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    145deg,
+    rgba(25, 10, 5, 0.95) 0%,
+    rgba(35, 15, 8, 0.9) 30%,
+    rgba(20, 8, 3, 0.93) 60%,
+    rgba(25, 10, 5, 0.96) 100%
+  );
 }
 
-.ritual-cta:hover .ritual-negativity {
-  opacity: 0 !important;
-  transform: rotate(15deg) scale(1.5);
-  filter: blur(5px);
-  animation: none !important;
+.ritual-dark-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(50, 25, 10, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(40, 20, 8, 0.35) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 80%, rgba(45, 22, 10, 0.3) 0%, transparent 40%);
+  animation: ashBreathing 5.5s ease-in-out infinite alternate;
 }
 
-.ritual-cta {
-  transition: all 1.5s ease-in-out;
+.ritual-dark-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse at 40% 55%, rgba(180, 60, 20, 0.06) 0%, transparent 40%),
+    radial-gradient(ellipse at 65% 45%, rgba(200, 80, 25, 0.04) 0%, transparent 35%);
+  animation: emberPulse 3.5s ease-in-out infinite alternate;
 }
 
-.ritual-cta:hover {
-  background: rgba(201, 162, 39, 0.12);
-  border-color: rgba(201, 162, 39, 0.45);
-  color: #c9a227;
+@keyframes ashBreathing {
+  0% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.01) translate(1px, 0);
+  }
+  100% {
+    opacity: 0.7;
+    transform: scale(0.99) translate(-1px, 1px);
+  }
+}
+
+@keyframes emberPulse {
+  0% {
+    opacity: 0.3;
+  }
+  40% {
+    opacity: 0.7;
+  }
+  60% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+.ritual-flame-edge {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  left: 0;
+  width: 25px;
+  z-index: 3;
+  pointer-events: none;
+  border-radius: 2px;
+  opacity: 0;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 180, 50, 0.3) 15%,
+    rgba(255, 140, 30, 0.7) 30%,
+    rgba(255, 100, 10, 0.9) 45%,
+    rgba(255, 200, 60, 1) 55%,
+    rgba(255, 120, 20, 0.8) 70%,
+    rgba(200, 60, 10, 0.5) 85%,
+    transparent 100%
+  );
+  filter: blur(1px);
+  animation: flameFlicker 0.15s ease-in-out infinite alternate;
   box-shadow:
-    0 0 20px rgba(201, 162, 39, 0.2),
-    0 0 50px rgba(201, 162, 39, 0.1);
+    0 0 12px rgba(255, 150, 30, 0.5),
+    0 0 25px rgba(255, 120, 20, 0.3),
+    0 0 40px rgba(200, 80, 10, 0.15);
 }
 
-.ritual-cta:not(:hover) .ritual-negativity {
-  transition:
-    opacity 3.5s ease-in,
-    transform 3.5s ease-in,
-    filter 3.5s ease-in;
+@keyframes flameFlicker {
+  0% {
+    transform: scaleY(1) scaleX(1);
+    filter: blur(1px) brightness(1);
+  }
+  25% {
+    transform: scaleY(1.03) scaleX(0.97);
+    filter: blur(1.5px) brightness(1.1);
+  }
+  50% {
+    transform: scaleY(0.97) scaleX(1.02);
+    filter: blur(0.8px) brightness(0.95);
+  }
+  75% {
+    transform: scaleY(1.02) scaleX(0.98);
+    filter: blur(1.2px) brightness(1.05);
+  }
+  100% {
+    transform: scaleY(0.98) scaleX(1.01);
+    filter: blur(1px) brightness(1);
+  }
+}
+
+@keyframes ritualAshFall {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.85;
+  }
+  30% {
+    transform: translate(
+      calc(var(--drift-x) * 0.3),
+      12px
+    ) rotate(15deg);
+    opacity: 0.65;
+  }
+  60% {
+    transform: translate(
+      calc(var(--drift-x) * 0.6),
+      30px
+    ) rotate(-10deg);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate(
+      var(--drift-x),
+      55px
+    ) rotate(20deg);
+    opacity: 0;
+  }
+}
+
+@keyframes ritualSmokeFall {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translate(
+      calc(var(--drift-x) * 0.5),
+      -15px
+    ) scale(1.5);
+    opacity: 0.08;
+  }
+  100% {
+    transform: translate(
+      var(--drift-x),
+      -35px
+    ) scale(2.2);
+    opacity: 0;
+  }
+}
+
+.ritual-cta .cta-text {
+  transition: all 2.5s ease-in-out;
+}
+
+.ritual-cta:hover .cta-text {
+  color: #c9a227;
+  text-shadow:
+    0 0 8px rgba(201, 162, 39, 0.3),
+    0 0 20px rgba(201, 162, 39, 0.1);
 }
 
 .cta-button:hover .cta-text {
@@ -696,9 +842,11 @@
   .cta-button:hover {
     animation: none;
   }
-  .wax-negativity,
-  .lead-negativity,
-  .ritual-negativity {
+  .wax-dark-overlay,
+  .lead-dark-overlay,
+  .ritual-dark-overlay,
+  .ritual-flame-edge {
+    animation: none;
     transition: none;
   }
 }
